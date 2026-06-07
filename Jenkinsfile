@@ -1,7 +1,8 @@
 pipeline {
     agent any
     environment {
-        DOCKER_IMAGE = 'YASH-OG/shopeasy_devops'
+        // Updated to your exact lowercase Docker Hub username
+        DOCKER_IMAGE = 'yashog/shopeasy_devops'
     }
     stages {
         stage('Clone Repository') {
