@@ -1,0 +1,4 @@
+[prod_servers]# Maps connection context configuration fields straight to target deployment runtime node
+
+production_node ansible_host=172.31.42.71 ansible_user=ubuntu ansible_ssh_private_key_file=./shopeasyjenkins.pem
+

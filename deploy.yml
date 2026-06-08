@@ -1,0 +1,31 @@
+---
+- name: Deploy ShopEasy Inventory Service to Production
+  hosts: prod_servers
+  become: yes
+  tasks:
+    - name: Ensure Docker is installed on the production node
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Pull the latest Docker image from Hub
+      docker_image:
+        name: yashog/shopeasy_devops
+        tag: latest
+        source: pull
+        force_source: yes
+
+    - name: Stop older container if running
+      docker_container:
+        name: shopeasy-inventory-app
+        state: absent
+
+    - name: Run fresh production container bound to port 8000
+      docker_container:
+        name: shopeasy-inventory-app
+        image: yashog/shopeasy_devops:latest
+        state: started
+        restart_policy: always
+        published_ports:
+          - "8000:8000"
